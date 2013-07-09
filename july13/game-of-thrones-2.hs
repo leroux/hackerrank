@@ -9,8 +9,9 @@ factorial n = n * factorial (n - 1)
 numberOfPermutedPalins :: Ord a => [a] -> Integer
 numberOfPermutedPalins xs = numer `div` denom
   where freqs = map (toInteger . length) $ group $ sort xs
-        numer = factorial $ sum $ map (`div` 2) freqs
-        denom = product $ map (factorial . (`div` 2)) freqs
+        halfFreqs = map (`div` 2) freqs
+        numer = (factorial . sum) halfFreqs
+        denom = (product . map factorial) halfFreqs
 
 main :: IO ()
 main = do
